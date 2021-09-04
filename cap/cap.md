@@ -96,7 +96,7 @@ and boom a directory with a flag in a text document titled user.txt.
 
 ![FTP-Directory](img/capture9.PNG)
 
-FLAG: a3f237c5e2d98e21998ca7a8d6123aad
+**FLAG: a3f237c5e2d98e21998ca7a8d6123aad**
 
 ### SSH Login
 
