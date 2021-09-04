@@ -60,9 +60,52 @@ I wanted to start off with ftp I'm going to see how the service interacts when w
 So I initially attempted to see if it allows anonymous ftp login access however it doesn't so I moved on to attempting to bruteforce the credentials with the user **Nathan**.  Using the command down below
 
 ```
-hydra -L names.txt -P /usr/share/wordlists/fasttrack.txt
+hydra -L names.txt -P /usr/share/wordlists/fasttrack.txt -t 10 10.10.10.245 ftp
 ```
 
-### Port 22 Enumeration
+This did not give me any successful results so I moved on to attempting to enumerate some more.
+
+```
+nmap -p 21 -A -sV -sC 10.10.10.245
+```
+
+this command was in hopes of identifying any new service information to no avail once again.
+
+So at this point I was pretty stumped and decided to take a break.  From past experience FTP and SSH enumeration usually provide no effective results unless I bruteforce the systems which would take countless amount of hours so I decided to resort to that as a last ditch effort.  As a result I returned to investigating port 80.
+
+### Port 80 the Return
+
+So when I went back to port 80 I decided to take a long look at the netstat and ipconfig pages knowing that these results are based on real linux commands I decided to try and type in commands within the url which didn't work.  I also tried fiddling around with the netstat page by continously refresshing it and noting down specific connections however nothing was effective and I decided to take a break.
+
+During this break I began to reconsider the machine if there was any aspect of it that was unique or unusual, thats when I figured it out the pcap file system.  Not only that but there were directories starting from 1 all the way to n where n is the number of times we visit the page.  However there was always one little problem with  each of the pcap files that brushed aside earlier the lack of the 3 way tcp handshake.  I then though of maybe that there was a 0th pcap and voila there was indeed a 0th pcap file I immediately downloaded and woudl you look at that FTP credentials for the user nathan.
+
+![PCAP-0](img/capture8.PNG)
 
 
+### FTP enumeration
+
+From here I returned to the ftp client
+
+```
+ftp 10.10.10.245
+```
+
+connected to it with the credentials **nathan** and **Buck3tH4TF0RM3!**
+
+and boom a directory with a flag in a text document titled user.txt.
+
+![FTP-Directory](img/capture9.PNG)
+
+FLAG: a3f237c5e2d98e21998ca7a8d6123aad
+
+### SSH Login
+
+It was just a simple guess but many users tend to repeat credentials so I logged into ssh using the same credentials with the command
+
+```
+ssh nathan@10.10.10.245
+```
+
+and I was in nathan's home directory where once again I have access to the user flag.
+
+![SSH-Login](img/capture10.PNG)
