@@ -77,7 +77,7 @@ So at this point I was pretty stumped and decided to take a break.  From past ex
 
 So when I went back to port 80 I decided to take a long look at the netstat and ipconfig pages knowing that these results are based on real linux commands I decided to try and type in commands within the url which didn't work.  I also tried fiddling around with the netstat page by continously refresshing it and noting down specific connections however nothing was effective and I decided to take a break.
 
-During this break I began to reconsider the machine if there was any aspect of it that was unique or unusual, thats when I figured it out the pcap file system.  Not only that but there were directories starting from 1 all the way to n where n is the number of times we visit the page.  However there was always one little problem with  each of the pcap files that brushed aside earlier the lack of the 3 way tcp handshake.  I then though of maybe that there was a 0th pcap and voila there was indeed a 0th pcap file I immediately downloaded and woudl you look at that FTP credentials for the user nathan.
+During this break I began to reconsider the machine if there was any aspect of it that was unique or unusual, thats when I figured it out the pcap file system.  Not only that but there were directories starting from 1 all the way to n where n is the number of times we visit the page.  However there was always one little problem with  each of the pcap files that I brushed aside earlier: the lack of the 3 way tcp handshake.  I then though of maybe that there was a 0th pcap and voila there was indeed a 0th pcap file I immediately downloaded and woudl you look at that FTP credentials for the user nathan.
 
 ![PCAP-0](img/capture8.PNG)
 
