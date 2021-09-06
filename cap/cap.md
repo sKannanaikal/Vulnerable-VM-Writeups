@@ -109,3 +109,24 @@ ssh nathan@10.10.10.245
 and I was in nathan's home directory where once again I have access to the user flag.
 
 ![SSH-Login](img/capture10.PNG)
+
+
+## Privliege Escalation
+
+Once I got into the system I realized I was not really that good with actually privliege escalating so I ended up spending an entire weekend learning about many techniques from looking at kernel exploits, ssh key generating, SUID, SGID, writing to directories and many more.  Hilariously I assumed the privliege esclation aspect would require a complicated string of commands in order to achieve the desired output however python3 was available.  Not only that but I utilized 2 aspects of privliege escalation I learned file capabilities and gtfobins.
+
+I utilized the command 
+
+```
+getcap -r / 2>/dev/null
+```
+
+With this command I was able to see file capabiliteies for binaries one of which was python3 which had the cap_setuid capability set.  With that I ended up going to gtfobins and found an exploit command which could allow me to break out of shells.
+
+```
+/usr/bin/python3.8 -c 'import os; os.setuid(0); os.system("/bin/sh")'
+```
+
+I was then successfully able to spawn a root shell then simply navigated myself to the root directory and obtained the flag.
+
+**cb83b576c64b8b8e3f5b8939460f1496**
